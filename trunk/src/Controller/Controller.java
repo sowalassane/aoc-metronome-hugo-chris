@@ -1,5 +1,6 @@
 package Controller;
 
 public interface Controller {
-	public void update();
+	public void updateMoteur();
+	public void updateIHM();
 }
