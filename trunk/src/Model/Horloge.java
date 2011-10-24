@@ -4,8 +4,8 @@ public interface Horloge {
 	/**
 	 * Active l'action cmd toute les periodEnSec secondes. L'action se repete a l'infini sans
 	 * tant que la method desactiver n'est pas utiliser
-	 * @param cmd la Command a executer toute les periodEnSec secondes
-	 * @param periodEnSec delai en secondes entre le sexecution de la Command cmd
+	 * @param cmd la Command a executer toutes les periodEnSec secondes
+	 * @param periodEnSec delai en secondes entre les executions de la Command cmd
 	 */
 	public void activerPeriodiquement(Command cmd, float periodEnSec);
 	
