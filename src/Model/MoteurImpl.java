@@ -18,13 +18,11 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setTempo(int t) {
 		tempo=t;
-		
 	}
 
 	@Override
 	public void setNbTpsParMesure(int t) {
 		nbTpsParMesure=t;
-		
 	}
 
 	@Override
@@ -46,31 +44,26 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setCmdMarquerTps(Command cmd) {
 		marquerTemps=cmd;
-		
 	}
 
 	@Override
 	public void setCmdTic(Command cmd) {
 		traiterTic=cmd;
-		
 	}
 
 	@Override
 	public void traiterTic() {
 		traiterTic.execute();
-		
 	}
 
 	@Override
 	public void attach(ObserverMoteur o) {
 		ListObsMoteur.add(o);
-		
 	}
 
 	@Override
 	public void detach(ObserverMoteur o) {
 		ListObsMoteur.remove(o);
-		
 	}
 	
 }

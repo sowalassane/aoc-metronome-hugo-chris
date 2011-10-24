@@ -10,11 +10,11 @@ public interface Moteur {
 	public void setEnMarche(boolean b);
 	/**
 	 * specifie la command a utiliser pour le traitement d'un temps
-	 * @param cmd COmmand permettant de marquer un temps
+	 * @param cmd Command permettant de marquer un temps
 	 */
 	public void setCmdMarquerTps(Command cmd);
 	/**
-	 * spécifie la command a utiliser pour le traitement d'un clic
+	 * specifie la command a utiliser pour le traitement d'un clic
 	 * @param cmd Command permettant de traiter un clic
 	 */
 	public void setCmdTic(Command cmd);
