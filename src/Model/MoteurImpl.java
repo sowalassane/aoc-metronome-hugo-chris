@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class MoteurImpl implements Moteur{
@@ -50,9 +51,14 @@ public class MoteurImpl implements Moteur{
 	public void setCmdTic(Command cmd) {
 		traiterTic=cmd;
 	}
+	
+	public void setMarquerTemps(Command marquerTemps) {
+		this.marquerTemps = marquerTemps;
+	}
 
 	@Override
 	public void traiterTic() {
+		//TODO marquer temps si necessaire
 		traiterTic.execute();
 	}
 
@@ -64,6 +70,18 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void detach(ObserverMoteur o) {
 		ListObsMoteur.remove(o);
+	}
+
+	@Override
+	public void notifyObserversMoteur() {
+		Iterator<ObserverMoteur> it=ListObsMoteur.iterator();
+		//pour chaque observer moteur, utiliser la methode update afin de signaler un changement
+		//d'etat du moteur
+		while(it.hasNext()){
+			//it.next() => rend l'objet ObserverMoteur courant ET avance d'un cran dans la liste
+			it.next().update();
+		}
+		
 	}
 	
 }
