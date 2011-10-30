@@ -9,9 +9,10 @@ public class ControllerImpl implements Controller{
 	}
 
 	@Override
-	public void updateIHM() {
+	public void updateIhm() {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }
