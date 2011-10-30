@@ -24,4 +24,5 @@ public interface Moteur {
 	public void traiterTic();
 	public void attach(ObserverMoteur o);
 	public void detach(ObserverMoteur o);
+	public void notifyObserversMoteur();
 }

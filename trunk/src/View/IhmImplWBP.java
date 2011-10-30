@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,11 +10,21 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.swing.SwingConstants;
 
-public class IhmImplWBP extends JFrame {
+public class IhmImplWBP extends JFrame implements Ihm{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JSlider slider;
+	private List<ObserverIhm> observers=new ArrayList<ObserverIhm>();
 
 	/**
 	 * Launch the application.
@@ -44,7 +53,7 @@ public class IhmImplWBP extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JSlider slider = new JSlider();
+		slider = new JSlider();
 		slider.setBounds(10, 60, 130, 36);
 		contentPane.add(slider);
 		
@@ -97,5 +106,40 @@ public class IhmImplWBP extends JFrame {
 		lblMetronome.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		lblMetronome.setBounds(135, 11, 174, 38);
 		contentPane.add(lblMetronome);
+	}
+
+	@Override
+	public float getPositionSlider() {
+		// TODO valeur du slider a rendre? tempo ?
+		return slider.getValue();
+	}
+
+	@Override
+	public void attach(ObserverIhm o) {
+		observers.add(o);
+		
+	}
+
+	@Override
+	public void detach(ObserverIhm o) {
+		observers.remove(o);
+		
+	}
+
+	@Override
+	public void notifyObserversIhm() {
+		Iterator<ObserverIhm> it=observers.iterator();
+		//pour chaque observer de l'ihm, utiliser la methode update afin de signaler un changement
+		//d'etat de lihm
+		while(it.hasNext()){
+			//it.next() => rend l'objet ObserverIhm courant ET avance d'un cran dans la liste
+			it.next().update();
+		}
+	}
+
+	@Override
+	public void flasherLED(int num) {
+		// TODO Auto-generated method stub
+		
 	}
 }
