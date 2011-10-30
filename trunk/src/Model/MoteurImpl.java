@@ -1,16 +1,25 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class MoteurImpl implements Moteur{
-	private List<ObserverMoteur> ListObsMoteur;
+	private List<ObserverMoteur> ListObsMoteur=new ArrayList<ObserverMoteur>();
 	private Command traiterTic;
 	private Command marquerTemps;
 	private boolean etatMarche;
 	private int nbTpsParMesure;
 	private int tempo;
-
+	private Horloge horloge;
+	
+	public MoteurImpl(){
+		traiterTic=new CmdTraiterTic();
+		marquerTemps=new CmdMarquerTemps();
+		horloge=new TimerToHorloge();
+		etatMarche=false;
+	}
+	
 	@Override
 	public int getTempo() {
 		return tempo;
@@ -79,9 +88,9 @@ public class MoteurImpl implements Moteur{
 		//d'etat du moteur
 		while(it.hasNext()){
 			//it.next() => rend l'objet ObserverMoteur courant ET avance d'un cran dans la liste
-			it.next().update();
+			it.next().updateMoteur();
 		}
 		
 	}
-	
+		
 }

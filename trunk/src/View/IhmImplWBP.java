@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.swing.SwingConstants;
 
+import Model.*;
+
 public class IhmImplWBP extends JFrame implements Ihm{
 
 	/**
@@ -25,27 +27,17 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	private JPanel contentPane;
 	private JSlider slider;
 	private List<ObserverIhm> observers=new ArrayList<ObserverIhm>();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IhmImplWBP frame = new IhmImplWBP();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private Command cmdStart;
+	private Command cmdStop;
+	private Command cmdInc;
+	private Command cmdDec;
+	private Command cmdChangeTempo;
 
 	/**
 	 * Create the frame.
 	 */
 	public IhmImplWBP() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -54,6 +46,9 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		contentPane.setLayout(null);
 		
 		slider = new JSlider();
+		slider.setMinorTickSpacing(2);
+		slider.setMaximum(208);
+		slider.setMinimum(40);
 		slider.setBounds(10, 60, 130, 36);
 		contentPane.add(slider);
 		
@@ -63,7 +58,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		panel.setBounds(161, 60, 139, 36);
 		contentPane.add(panel);
 		
-		JLabel lblAfficheurl = new JLabel("New label");
+		JLabel lblAfficheurl = new JLabel();
 		lblAfficheurl.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panel.add(lblAfficheurl);
 		
@@ -106,11 +101,12 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		lblMetronome.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		lblMetronome.setBounds(135, 11, 174, 38);
 		contentPane.add(lblMetronome);
+		
+		this.setVisible(true);
 	}
 
 	@Override
 	public float getPositionSlider() {
-		// TODO valeur du slider a rendre? tempo ?
 		return slider.getValue();
 	}
 
@@ -133,7 +129,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		//d'etat de lihm
 		while(it.hasNext()){
 			//it.next() => rend l'objet ObserverIhm courant ET avance d'un cran dans la liste
-			it.next().update();
+			it.next().updateIhm();
 		}
 	}
 
