@@ -5,11 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,11 +36,15 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	private Command cmdInc;
 	private Command cmdDec;
 	private Command cmdChangeTempo;
+	private boolean etat;
+	private int tpsParMesure;
 
 	/**
 	 * Create the frame.
 	 */
 	public IhmImplWBP() {
+		etat=false;
+		tpsParMesure=1;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -102,6 +110,115 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		lblMetronome.setBounds(135, 11, 174, 38);
 		contentPane.add(lblMetronome);
 		
+		//*************ajout des listener sur les boutons de l'interface
+		//listener bouton start
+		MouseListener listenerStart=new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!etat){
+					setEtatMarche(true);
+				}
+			}
+		};
+		btnStart.addMouseListener(listenerStart);
+		
+		//listener bouton stop
+		MouseListener listenerStop=new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(etat){
+					setEtatMarche(false);
+				}
+			}
+		};
+		btnStop.addMouseListener(listenerStop);
+		
+		//listener bouton Inc
+		MouseListener listenerInc=new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(tpsParMesure<7){
+					setTpsParMesure(tpsParMesure++);
+				}
+			}
+		};
+		btnInc.addMouseListener(listenerInc);
+		
+		//listener bouton Dec
+		MouseListener listenerDec=new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(tpsParMesure>1){
+					setTpsParMesure(tpsParMesure--);
+				}
+			}
+		};
+		btnDec.addMouseListener(listenerDec);
+		
+		//change listener sur le slider
+		//TODO ne pas envoyer d'evenement des que le slider change
+		//stocker valeur et n'envoyer que si la val ne change pas ?
+		slider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				notifyObserversIhm();
+			}
+		});
+		//************Fin d'ajouts de listener
+		
 		this.setVisible(true);
 	}
 
@@ -136,6 +253,29 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	@Override
 	public void flasherLED(int num) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean getEtatMarche() {
+		return etat;
+	}
+
+	@Override
+	public void setEtatMarche(boolean etat) {
+		this.etat=etat;
+		notifyObserversIhm();
+	}
+
+	@Override
+	public int getTpsParMesure() {
+		return tpsParMesure;
+	}
+
+	@Override
+	public void setTpsParMesure(int tpsParMesure) {
+		this.tpsParMesure=tpsParMesure;
+		notifyObserversIhm();
 		
 	}
 }

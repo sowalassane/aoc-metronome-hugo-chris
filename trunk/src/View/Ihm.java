@@ -29,4 +29,29 @@ public interface Ihm {
 	 * @param num numero de la LED a flasher( 1: LED TIC, 2: LED temps)
 	 */
 	public void flasherLED(int num);
+	
+	/**
+	 * renvoie true si le metronome est en etat de marche, false sinon
+	 * @return etat du metronome
+	 */
+	public boolean getEtatMarche();
+	
+	/**
+	 * specifie l'etat du metronome et notifie les observer
+	 * @param etat
+	 */
+	public void setEtatMarche(boolean etat);
+	
+	/**
+	 * retourne le nombre de temps par mesure
+	 * @return
+	 */
+	public int getTpsParMesure();
+	
+	/**
+	 * specifie le nombre de temps par  mesure et notifie les observer
+	 * @param tpsParMesure
+	 */
+	public void setTpsParMesure(int tpsParMesure);
+	
 }

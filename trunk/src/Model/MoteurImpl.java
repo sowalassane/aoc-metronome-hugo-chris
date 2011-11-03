@@ -8,31 +8,36 @@ public class MoteurImpl implements Moteur{
 	private List<ObserverMoteur> ListObsMoteur=new ArrayList<ObserverMoteur>();
 	private Command traiterTic;
 	private Command marquerTemps;
+	private Command marquerMesure;
 	private boolean etatMarche;
 	private int nbTpsParMesure;
-	private int tempo;
+	private int nbTpsDansMesureActuelle;
+	private float tempo;
 	private Horloge horloge;
 	
 	public MoteurImpl(){
-		traiterTic=new CmdTraiterTic();
-		marquerTemps=new CmdMarquerTemps();
+		traiterTic=new CmdTraiterTic(this);
+		nbTpsParMesure=1;
+		nbTpsDansMesureActuelle=0;
 		horloge=new TimerToHorloge();
 		etatMarche=false;
 	}
 	
 	@Override
-	public int getTempo() {
+	public float getTempo() {
 		return tempo;
 	}
 
 	@Override
-	public void setTempo(int t) {
+	public void setTempo(float t) {
 		tempo=t;
+		//TODO changer l'evenement au niveau de l'horloge
 	}
 
 	@Override
 	public void setNbTpsParMesure(int t) {
 		nbTpsParMesure=t;
+		nbTpsDansMesureActuelle=0;
 	}
 
 	@Override
@@ -48,7 +53,7 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setEnMarche(boolean b) {
 		etatMarche=b;
-		
+		//TODO changer appel des cactions selon etat
 	}
 
 	@Override
@@ -67,8 +72,8 @@ public class MoteurImpl implements Moteur{
 
 	@Override
 	public void traiterTic() {
-		//TODO marquer temps si necessaire
-		traiterTic.execute();
+		//TODO marquer temps si necessaire, flash des led
+		
 	}
 
 	@Override
@@ -91,6 +96,11 @@ public class MoteurImpl implements Moteur{
 			it.next().updateMoteur();
 		}
 		
+	}
+
+	@Override
+	public void setCmdMarquerMesure(Command cmd) {
+		marquerMesure=cmd;	
 	}
 		
 }
