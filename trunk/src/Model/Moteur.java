@@ -2,11 +2,25 @@ package Model;
 
 //test commentaire
 public interface Moteur {
-	public float getTempo();
-	public void setTempo(float t);
+	public int getTempo();
+	/**
+	 * specifie le tempo et notifie l'observer moteur
+	 * @param t
+	 */
+	public void setTempo(int t);
+	
+	/**
+	 * specifie le nb de temps apr mesure et notifie l'observer moteur
+	 * @param t
+	 */
 	public void setNbTpsParMesure(int t);
-	public int getNbTpsParMesure();
+	public int getNbTpsParMesure();	
 	public boolean getEnMarche();
+	
+	/**
+	 * specifie l'etat du moteur et notifie l'observer moteur
+	 * @return
+	 */
 	public void setEnMarche(boolean b);
 	/**
 	 * specifie la command a utiliser pour le traitement d'un temps

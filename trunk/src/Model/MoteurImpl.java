@@ -12,32 +12,36 @@ public class MoteurImpl implements Moteur{
 	private boolean etatMarche;
 	private int nbTpsParMesure;
 	private int nbTpsDansMesureActuelle;
-	private float tempo;
+	private int tempo;
 	private Horloge horloge;
 	
 	public MoteurImpl(){
 		traiterTic=new CmdTraiterTic(this);
 		nbTpsParMesure=1;
 		nbTpsDansMesureActuelle=0;
+		tempo=40;
 		horloge=new TimerToHorloge();
 		etatMarche=false;
 	}
 	
 	@Override
-	public float getTempo() {
+	public int getTempo() {
 		return tempo;
 	}
 
 	@Override
-	public void setTempo(float t) {
+	public void setTempo(int t) {
 		tempo=t;
-		//TODO changer l'evenement au niveau de l'horloge
+		horloge.desactiver(traiterTic);
+		horloge.activerPeriodiquement(traiterTic, 60/t);
+		notifyObserversMoteur();
 	}
 
 	@Override
 	public void setNbTpsParMesure(int t) {
 		nbTpsParMesure=t;
 		nbTpsDansMesureActuelle=0;
+		notifyObserversMoteur();
 	}
 
 	@Override
@@ -53,7 +57,16 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setEnMarche(boolean b) {
 		etatMarche=b;
-		//TODO changer appel des cactions selon etat
+		//si on met en marche le moteur, alors on passe la commande traiter tic a l'ohrloge
+		//avec le tempo desire
+		if(etatMarche){
+			horloge.activerPeriodiquement(traiterTic, 60/tempo);
+		}
+		//sinon on arrete l'appel periodique a la commande de traitemlent des tics
+		else{
+			horloge.desactiver(traiterTic);
+		}
+		notifyObserversMoteur();
 	}
 
 	@Override
@@ -72,7 +85,12 @@ public class MoteurImpl implements Moteur{
 
 	@Override
 	public void traiterTic() {
-		//TODO marquer temps si necessaire, flash des led
+		marquerTemps.execute();
+		nbTpsDansMesureActuelle++;
+		if(nbTpsDansMesureActuelle==nbTpsParMesure){
+			nbTpsDansMesureActuelle=0;
+			marquerMesure.execute();
+		}
 		
 	}
 

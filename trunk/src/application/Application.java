@@ -13,7 +13,6 @@ public class Application {
 		controller.setMoteur(moteur);
 		controller.setIhm(ihm);
 		
-		
 		Command marquerTps=new CmdMarquerTemps(controller);
 		Command marquerMesure=new CmdMarquerMesure(controller);
 		moteur.setCmdMarquerTps(marquerTps);

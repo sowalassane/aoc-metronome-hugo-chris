@@ -2,6 +2,10 @@ package View;
 
 import java.awt.EventQueue;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,13 +18,13 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.SwingConstants;
 
-import Model.*;
 
 public class IhmImplWBP extends JFrame implements Ihm{
 
@@ -31,13 +35,12 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	private JPanel contentPane;
 	private JSlider slider;
 	private List<ObserverIhm> observers=new ArrayList<ObserverIhm>();
-	private Command cmdStart;
-	private Command cmdStop;
-	private Command cmdInc;
-	private Command cmdDec;
-	private Command cmdChangeTempo;
 	private boolean etat;
 	private int tpsParMesure;
+	private Clip bip;
+	private JLabel lblAfficheur;
+	private JButton btnInc;
+	private JButton btnDec;
 
 	/**
 	 * Create the frame.
@@ -45,6 +48,20 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	public IhmImplWBP() {
 		etat=false;
 		tpsParMesure=1;
+		
+		//init bip
+		try {
+			bip = AudioSystem.getClip();
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/song/beep.wav"));
+			bip.open(ais);
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -57,6 +74,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		slider.setMinorTickSpacing(2);
 		slider.setMaximum(208);
 		slider.setMinimum(40);
+		slider.setValue(40);
 		slider.setBounds(10, 60, 130, 36);
 		contentPane.add(slider);
 		
@@ -66,9 +84,9 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		panel.setBounds(161, 60, 139, 36);
 		contentPane.add(panel);
 		
-		JLabel lblAfficheurl = new JLabel();
-		lblAfficheurl.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel.add(lblAfficheurl);
+		lblAfficheur = new JLabel("40");
+		lblAfficheur.setFont(new Font("Tahoma", Font.BOLD, 15));
+		panel.add(lblAfficheur);
 		
 		JButton btnStart = new JButton("START");
 		btnStart.setBounds(24, 194, 89, 23);
@@ -78,11 +96,11 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		btnStop.setBounds(123, 194, 89, 23);
 		contentPane.add(btnStop);
 		
-		JButton btnInc = new JButton("INC");
+		btnInc = new JButton("INC");
 		btnInc.setBounds(222, 194, 89, 23);
 		contentPane.add(btnInc);
 		
-		JButton btnDec = new JButton("DEC");
+		btnDec = new JButton("DEC");
 		btnDec.setBounds(321, 194, 89, 23);
 		contentPane.add(btnDec);
 		
@@ -219,11 +237,12 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		});
 		//************Fin d'ajouts de listener
 		
+		setEtatIhm(false);
 		this.setVisible(true);
 	}
 
 	@Override
-	public float getPositionSlider() {
+	public int getPositionSlider() {
 		return slider.getValue();
 	}
 
@@ -277,5 +296,30 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		this.tpsParMesure=tpsParMesure;
 		notifyObserversIhm();
 		
+	}
+
+	@Override
+	public void emettreClic() {
+		bip.start();
+		
+	}
+
+	@Override
+	public void setAfficheur(String string) {
+		lblAfficheur.setText(string);
+	}
+
+	@Override
+	public void setEtatIhm(boolean etat) {
+		if(etat){
+			btnInc.setEnabled(true);
+			btnDec.setEnabled(true);
+			slider.setEnabled(true);
+		}
+		else{
+			btnInc.setEnabled(false);
+			btnDec.setEnabled(false);
+			slider.setEnabled(false);
+		}
 	}
 }
