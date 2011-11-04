@@ -46,11 +46,12 @@ public class TimerToHorloge implements Horloge{
 
 	@Override
 	public void desactiver(Command cmd) {
-		//arret de la repetition du timer correspondant a l'action
-		repeatedCommands.get(cmd).stop();
-		//suppression du timer de la liste des actions a repeter
-		repeatedCommands.remove(cmd);
-		
+		if(repeatedCommands.get(cmd)!=null){
+			//arret de la repetition du timer correspondant a l'action
+			repeatedCommands.get(cmd).stop();
+			//suppression du timer de la liste des actions a repeter
+			repeatedCommands.remove(cmd);
+		}
 	}
 
 }

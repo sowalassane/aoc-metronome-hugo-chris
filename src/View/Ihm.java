@@ -2,10 +2,10 @@ package View;
 
 public interface Ihm {
 	/**
-	 * renvoie la position du slider tempo de l'IHM
+	 * renvoie la position du slider tempo de l'IHM, compris entre 40 et 208
 	 * @return float, position du slider de tempo
 	 */
-	public float getPositionSlider();
+	public int getPositionSlider();
 	
 	/**
 	 * attache un observerIhm a l'ihm
@@ -53,5 +53,22 @@ public interface Ihm {
 	 * @param tpsParMesure
 	 */
 	public void setTpsParMesure(int tpsParMesure);
+	
+	/**
+	 * emet un clic
+	 */
+	public void emettreClic();
+	
+	/**
+	 * Affiche un texte sur l'afficheur de l'ihm
+	 * @param string
+	 */
+	public void setAfficheur(String string);
+	
+	/**
+	 * etat de l'ihm changement graphique de l'etat
+	 * @param etat
+	 */
+	public void setEtatIhm(boolean etat);
 	
 }

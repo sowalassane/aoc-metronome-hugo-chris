@@ -6,16 +6,20 @@ import View.Ihm;
 public class ControllerImpl implements Controller{
 	private Moteur moteur;
 	private Ihm ihm;
-	
+
 	@Override
 	public void updateMoteur() {
-		// TODO Auto-generated method stub
-		
+
+		ihm.setEtatIhm(moteur.getEnMarche());
+		ihm.setAfficheur(moteur.getTempo()+"");
+		//TODO afficher nb temps par mesure sur ihm ?
+
+
 	}
 
 	@Override
 	public void updateIhm() {
-		if(ihm.getEtatMarche()!=moteur.getEnMarche()){
+		if(ihm.getEtatMarche()!=moteur.getEnMarche()){		
 			moteur.setEnMarche(ihm.getEtatMarche());
 		}
 		if(ihm.getPositionSlider()!=moteur.getTempo()){
@@ -24,31 +28,31 @@ public class ControllerImpl implements Controller{
 		if(ihm.getTpsParMesure()!=moteur.getNbTpsParMesure()){
 			moteur.setNbTpsParMesure(ihm.getTpsParMesure());
 		}
-		
+
 	}
 
 	@Override
 	public void marquerTps() {
-		// TODO Auto-generated method stub
-		
+		ihm.emettreClic();
+		ihm.flasherLED(1);
 	}
 
 	@Override
 	public void marquerMesure() {
-		// TODO Auto-generated method stub
-		
+		ihm.flasherLED(2);
+
 	}
 
 	@Override
 	public void setMoteur(Moteur moteur) {
 		this.moteur=moteur;
-		
+
 	}
-	
+
 	@Override
 	public void setIhm(Ihm ihm) {
 		this.ihm=ihm;
-		
+
 	}
 
 
