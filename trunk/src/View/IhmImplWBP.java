@@ -25,6 +25,10 @@ import java.util.List;
 
 import javax.swing.SwingConstants;
 
+import Model.Command;
+import Model.Horloge;
+import Model.TimerToHorloge;
+
 
 public class IhmImplWBP extends JFrame implements Ihm{
 
@@ -41,6 +45,13 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	private JLabel lblAfficheur;
 	private JButton btnInc;
 	private JButton btnDec;
+	private Horloge horloge;
+	private JPanel panel_Led1;
+	private JPanel panel_Led2;
+
+	public Horloge getHorloge() {
+		return horloge;
+	}
 
 	/**
 	 * Create the frame.
@@ -48,6 +59,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	public IhmImplWBP() {
 		etat=false;
 		tpsParMesure=1;
+		horloge=new TimerToHorloge();
 		
 		//init bip
 		try {
@@ -112,12 +124,12 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		lblLed2.setBounds(321, 85, 46, 14);
 		contentPane.add(lblLed2);
 		
-		JPanel panel_Led1 = new JPanel();
+		panel_Led1 = new JPanel();
 		panel_Led1.setBackground(Color.LIGHT_GRAY);
 		panel_Led1.setBounds(377, 60, 10, 10);
 		contentPane.add(panel_Led1);
 		
-		JPanel panel_Led2 = new JPanel();
+		panel_Led2 = new JPanel();
 		panel_Led2.setBackground(Color.LIGHT_GRAY);
 		panel_Led2.setBounds(377, 85, 10, 10);
 		contentPane.add(panel_Led2);
@@ -195,7 +207,8 @@ public class IhmImplWBP extends JFrame implements Ihm{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(tpsParMesure<7){
-					setTpsParMesure(tpsParMesure++);
+					int temp=tpsParMesure+1;
+					setTpsParMesure(temp);
 				}
 			}
 		};
@@ -219,7 +232,8 @@ public class IhmImplWBP extends JFrame implements Ihm{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(tpsParMesure>1){
-					setTpsParMesure(tpsParMesure--);
+					int temp=tpsParMesure-1;
+					setTpsParMesure(temp);
 				}
 			}
 		};
@@ -271,7 +285,33 @@ public class IhmImplWBP extends JFrame implements Ihm{
 
 	@Override
 	public void flasherLED(int num) {
-		// TODO Auto-generated method stub
+		final JPanel led;
+		if(num==1){
+			led=panel_Led1;
+		}
+		else{
+			led=panel_Led2;
+		}
+		//allumer led
+		horloge.activerApresDelais(new Command() {
+			
+			@Override
+			public void execute() {
+				led.setBackground(Color.GREEN);
+				
+			}
+		}, 0);
+		
+		//eteindre apres 0.2 sec
+		horloge.activerApresDelais(new Command() {
+			
+			@Override
+			public void execute() {
+				led.setBackground(Color.LIGHT_GRAY);
+				
+			}
+		}, 0.1f);
+		
 		
 	}
 
@@ -301,6 +341,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	@Override
 	public void emettreClic() {
 		bip.start();
+		System.out.println("Click!");
 		
 	}
 
@@ -320,6 +361,9 @@ public class IhmImplWBP extends JFrame implements Ihm{
 			btnInc.setEnabled(false);
 			btnDec.setEnabled(false);
 			slider.setEnabled(false);
+			panel_Led1.setBackground(Color.LIGHT_GRAY);
+			panel_Led2.setBackground(Color.LIGHT_GRAY);
 		}
 	}
+
 }

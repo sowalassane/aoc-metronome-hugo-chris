@@ -44,4 +44,5 @@ public interface Moteur {
 	public void attach(ObserverMoteur o);
 	public void detach(ObserverMoteur o);
 	public void notifyObserversMoteur();
+	public void setHorloge(Horloge horloge);
 }

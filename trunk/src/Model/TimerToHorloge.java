@@ -16,7 +16,7 @@ public class TimerToHorloge implements Horloge{
 	@Override
 	public void activerPeriodiquement(Command cmd, float periodEnSec) {
 		final Command finalCmd=cmd;
-		Timer timerCmd=new Timer((int) periodEnSec*1000, new ActionListener() {
+		Timer timerCmd=new Timer((int) (periodEnSec*1000), new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -33,7 +33,7 @@ public class TimerToHorloge implements Horloge{
 	@Override
 	public void activerApresDelais(Command cmd, float delaiEnSec) {
 		final Command finalCmd=cmd;
-		Timer timerCmd=new Timer((int) delaiEnSec*1000, new ActionListener() {
+		Timer timerCmd=new Timer((int) (delaiEnSec*1000), new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
