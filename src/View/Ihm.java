@@ -1,5 +1,7 @@
 package View;
 
+import Model.Horloge;
+
 public interface Ihm {
 	/**
 	 * renvoie la position du slider tempo de l'IHM, compris entre 40 et 208
@@ -70,5 +72,8 @@ public interface Ihm {
 	 * @param etat
 	 */
 	public void setEtatIhm(boolean etat);
+	
+	public Horloge getHorloge();
+	
 	
 }

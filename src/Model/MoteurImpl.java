@@ -20,7 +20,6 @@ public class MoteurImpl implements Moteur{
 		nbTpsParMesure=1;
 		nbTpsDansMesureActuelle=0;
 		tempo=40;
-		horloge=new TimerToHorloge();
 		etatMarche=false;
 	}
 	
@@ -33,7 +32,8 @@ public class MoteurImpl implements Moteur{
 	public void setTempo(int t) {
 		tempo=t;
 		horloge.desactiver(traiterTic);
-		horloge.activerPeriodiquement(traiterTic, 60/t);
+		float delai=(float) 60/t;
+		horloge.activerPeriodiquement(traiterTic, delai);
 		notifyObserversMoteur();
 	}
 
@@ -60,7 +60,8 @@ public class MoteurImpl implements Moteur{
 		//si on met en marche le moteur, alors on passe la commande traiter tic a l'ohrloge
 		//avec le tempo desire
 		if(etatMarche){
-			horloge.activerPeriodiquement(traiterTic, 60/tempo);
+			float delai=(float) 60/tempo;
+			horloge.activerPeriodiquement(traiterTic, delai);
 		}
 		//sinon on arrete l'appel periodique a la commande de traitemlent des tics
 		else{
@@ -119,6 +120,12 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setCmdMarquerMesure(Command cmd) {
 		marquerMesure=cmd;	
+	}
+
+	@Override
+	public void setHorloge(Horloge horloge) {
+		this.horloge=horloge;
+		
 	}
 		
 }
