@@ -12,8 +12,6 @@ public class ControllerImpl implements Controller{
 
 		ihm.setEtatIhm(moteur.getEnMarche());
 		ihm.setAfficheur(moteur.getTempo()+"");
-		//TODO afficher nb temps par mesure sur ihm ?
-
 
 	}
 

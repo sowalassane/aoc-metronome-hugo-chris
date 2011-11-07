@@ -75,5 +75,7 @@ public interface Ihm {
 	
 	public Horloge getHorloge();
 	
+	public void setHorloge(Horloge horloge);
+	
 	
 }
