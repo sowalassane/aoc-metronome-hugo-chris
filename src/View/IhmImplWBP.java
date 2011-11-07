@@ -58,8 +58,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	 */
 	public IhmImplWBP() {
 		etat=false;
-		tpsParMesure=1;
-		horloge=new TimerToHorloge();
+		tpsParMesure=2;
 		
 		//init bip
 		try {
@@ -231,7 +230,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(tpsParMesure>1){
+				if(tpsParMesure>2){
 					int temp=tpsParMesure-1;
 					setTpsParMesure(temp);
 				}
@@ -253,6 +252,10 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		
 		setEtatIhm(false);
 		this.setVisible(true);
+	}
+
+	public void setHorloge(Horloge horloge) {
+		this.horloge = horloge;
 	}
 
 	@Override
@@ -340,7 +343,8 @@ public class IhmImplWBP extends JFrame implements Ihm{
 
 	@Override
 	public void emettreClic() {
-		bip.start();
+		//bip.start();
+		System.out.println("\007");
 		System.out.println("Click!");
 		
 	}
