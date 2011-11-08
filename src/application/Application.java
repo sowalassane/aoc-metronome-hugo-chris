@@ -10,6 +10,7 @@ public class Application {
 		Ihm ihm=new IhmImplWBP();
 		Moteur moteur=new MoteurImpl();	
 		//creation de l'horloge une couche materiel independante de l'ihm et du moteur, mais utilise par les deux
+		//TODO virer création horloge ici
 		Horloge horloge=new TimerToHorloge();
 		Controller controller=new ControllerImpl();
 		controller.setMoteur(moteur);

@@ -60,6 +60,7 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		etat=false;
 		tpsParMesure=2;
 		
+		
 		//init bip
 		try {
 			bip = AudioSystem.getClip();
