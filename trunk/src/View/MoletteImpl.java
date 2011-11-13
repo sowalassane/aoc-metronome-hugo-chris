@@ -1,17 +1,15 @@
 package View;
 
-import javax.swing.JSlider;
-
 public class MoletteImpl implements Molette{
 
-	private JSlider slider;
+	private SimulMateriel simulMateriel;
 	
-	public MoletteImpl(JSlider slider){
-		this.slider=slider;
+	public MoletteImpl(SimulMateriel simulMateriel){
+		this.simulMateriel=simulMateriel;;
 	}
 	@Override
 	public float position() {
-		float val=slider.getValue();
+		float val=simulMateriel.getPositionSlider();
 		val-=40;
 		return (val/168);
 	}

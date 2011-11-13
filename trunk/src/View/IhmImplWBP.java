@@ -30,7 +30,7 @@ import Model.Horloge;
 import Model.TimerToHorloge;
 
 
-public class IhmImplWBP extends JFrame implements Ihm{
+public class IhmImplWBP extends JFrame implements SimulMateriel{
 
 	/**
 	 * 
@@ -38,7 +38,6 @@ public class IhmImplWBP extends JFrame implements Ihm{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JSlider slider;
-	private List<ObserverIhm> observers=new ArrayList<ObserverIhm>();
 	private boolean etat;
 	private int tpsParMesure;
 	private Clip bip;
@@ -140,117 +139,6 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		lblMetronome.setBounds(135, 11, 174, 38);
 		contentPane.add(lblMetronome);
 		
-		//*************ajout des listener sur les boutons de l'interface
-		//listener bouton start
-		MouseListener listenerStart=new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(!etat){
-					setEtatMarche(true);
-				}
-			}
-		};
-		btnStart.addMouseListener(listenerStart);
-		
-		//listener bouton stop
-		MouseListener listenerStop=new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(etat){
-					setEtatMarche(false);
-				}
-			}
-		};
-		btnStop.addMouseListener(listenerStop);
-		
-		//listener bouton Inc
-		MouseListener listenerInc=new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(tpsParMesure<7){
-					int temp=tpsParMesure+1;
-					setTpsParMesure(temp);
-				}
-			}
-		};
-		btnInc.addMouseListener(listenerInc);
-		
-		//listener bouton Dec
-		MouseListener listenerDec=new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(tpsParMesure>2){
-					int temp=tpsParMesure-1;
-					setTpsParMesure(temp);
-				}
-			}
-		};
-		btnDec.addMouseListener(listenerDec);
-		
-		//change listener sur le slider
-		//TODO ne pas envoyer d'evenement des que le slider change
-		//stocker valeur et n'envoyer que si la val ne change pas ?
-		slider.addChangeListener(new ChangeListener() {
-			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				notifyObserversIhm();
-			}
-		});
-		//************Fin d'ajouts de listener
-		
 		setEtatIhm(false);
 		this.setVisible(true);
 	}
@@ -259,35 +147,10 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		this.horloge = horloge;
 	}
 
-	@Override
-	public int getPositionSlider() {
+	public float getPositionSlider() {
 		return slider.getValue();
 	}
 
-	@Override
-	public void attach(ObserverIhm o) {
-		observers.add(o);
-		
-	}
-
-	@Override
-	public void detach(ObserverIhm o) {
-		observers.remove(o);
-		
-	}
-
-	@Override
-	public void notifyObserversIhm() {
-		Iterator<ObserverIhm> it=observers.iterator();
-		//pour chaque observer de l'ihm, utiliser la methode update afin de signaler un changement
-		//d'etat de lihm
-		while(it.hasNext()){
-			//it.next() => rend l'objet ObserverIhm courant ET avance d'un cran dans la liste
-			it.next().updateIhm();
-		}
-	}
-
-	@Override
 	public void flasherLED(int num) {
 		final JPanel led;
 		if(num==1){
@@ -319,30 +182,27 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		
 	}
 
-	@Override
+	public JSlider getSlider() {
+		return slider;
+	}
+
 	public boolean getEtatMarche() {
 		return etat;
 	}
 
-	@Override
 	public void setEtatMarche(boolean etat) {
 		this.etat=etat;
-		notifyObserversIhm();
 	}
 
-	@Override
 	public int getTpsParMesure() {
 		return tpsParMesure;
 	}
 
-	@Override
 	public void setTpsParMesure(int tpsParMesure) {
 		this.tpsParMesure=tpsParMesure;
-		notifyObserversIhm();
 		
 	}
 
-	@Override
 	public void emettreClic() {
 		//bip.start();
 		System.out.println("\007");
@@ -350,12 +210,10 @@ public class IhmImplWBP extends JFrame implements Ihm{
 		
 	}
 
-	@Override
 	public void setAfficheur(String string) {
 		lblAfficheur.setText(string);
 	}
 
-	@Override
 	public void setEtatIhm(boolean etat) {
 		if(etat){
 			btnInc.setEnabled(true);

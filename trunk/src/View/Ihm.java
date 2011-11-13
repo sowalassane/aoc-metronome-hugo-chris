@@ -5,7 +5,7 @@ import Model.Horloge;
 public interface Ihm {
 	/**
 	 * renvoie la position du slider tempo de l'IHM, compris entre 40 et 208
-	 * @return float, position du slider de tempo
+	 * @return int, position du slider de tempo
 	 */
 	public int getPositionSlider();
 	
