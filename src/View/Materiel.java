@@ -9,9 +9,15 @@ public class Materiel {
 	private static Molette molette;
 	private static EmetteurSonore emetteur;
 	private static Afficheur afficheur;
+	private static SimulMateriel simulMateriel;
 	
-	public Materiel(){
+	public Materiel(SimulMateriel simulMateriel){
+		this.simulMateriel=simulMateriel;
 		horloge=new TimerToHorloge();
+		clavier=new ClavierImpl(simulMateriel);
+		molette=new MoletteImpl(simulMateriel);
+		emetteur=new EmetteurSonoreImpl(simulMateriel);
+		afficheur=new AfficheurImpl(simulMateriel);
 		
 	}
 	

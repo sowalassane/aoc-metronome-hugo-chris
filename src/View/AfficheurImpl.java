@@ -1,6 +1,11 @@
 package View;
 
 public class AfficheurImpl implements Afficheur{
+	private SimulMateriel simulMateriel;
+	
+	public AfficheurImpl(SimulMateriel simulMateriel){
+		this.simulMateriel=simulMateriel;
+	}
 
 	@Override
 	public void allumerLed(int numLED) {
