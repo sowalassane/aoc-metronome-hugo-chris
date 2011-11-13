@@ -21,8 +21,7 @@ public class AfficheurImpl implements Afficheur{
 
 	@Override
 	public void afficherTempo(int valTempo) {
-		// TODO Auto-generated method stub
-		
+		simulMateriel.setAfficheur(valTempo+"");
 	}
 
 }

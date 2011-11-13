@@ -38,7 +38,6 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JSlider slider;
-	private boolean etat;
 	private int tpsParMesure;
 	private Clip bip;
 	private JLabel lblAfficheur;
@@ -47,6 +46,7 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 	private Horloge horloge;
 	private JPanel panel_Led1;
 	private JPanel panel_Led2;
+	private boolean[] etatBoutons;
 
 	public Horloge getHorloge() {
 		return horloge;
@@ -56,7 +56,11 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 	 * Create the frame.
 	 */
 	public IhmImplWBP() {
-		etat=false;
+		etatBoutons=new boolean[4];
+		etatBoutons[0]=false;
+		etatBoutons[1]=false;
+		etatBoutons[2]=false;
+		etatBoutons[3]=false;
 		tpsParMesure=2;
 		
 		
@@ -186,14 +190,6 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 		return slider;
 	}
 
-	public boolean getEtatMarche() {
-		return etat;
-	}
-
-	public void setEtatMarche(boolean etat) {
-		this.etat=etat;
-	}
-
 	public int getTpsParMesure() {
 		return tpsParMesure;
 	}
@@ -227,6 +223,11 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 			panel_Led1.setBackground(Color.LIGHT_GRAY);
 			panel_Led2.setBackground(Color.LIGHT_GRAY);
 		}
+	}
+
+	@Override
+	public boolean getEtatBouton(int b) {
+		return etatBoutons[b];
 	}
 
 }
