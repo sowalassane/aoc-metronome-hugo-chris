@@ -43,14 +43,9 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 	private JLabel lblAfficheur;
 	private JButton btnInc;
 	private JButton btnDec;
-	private Horloge horloge;
 	private JPanel panel_Led1;
 	private JPanel panel_Led2;
 	private boolean[] etatBoutons;
-
-	public Horloge getHorloge() {
-		return horloge;
-	}
 
 	/**
 	 * Create the frame.
@@ -147,43 +142,8 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 		this.setVisible(true);
 	}
 
-	public void setHorloge(Horloge horloge) {
-		this.horloge = horloge;
-	}
-
 	public float getPositionSlider() {
 		return slider.getValue();
-	}
-
-	public void flasherLED(int num) {
-		final JPanel led;
-		if(num==1){
-			led=panel_Led1;
-		}
-		else{
-			led=panel_Led2;
-		}
-		//allumer led
-		horloge.activerApresDelais(new Command() {
-			
-			@Override
-			public void execute() {
-				led.setBackground(Color.GREEN);
-				
-			}
-		}, 0);
-		
-		//eteindre apres 0.2 sec
-		horloge.activerApresDelais(new Command() {
-			
-			@Override
-			public void execute() {
-				led.setBackground(Color.LIGHT_GRAY);
-				
-			}
-		}, 0.1f);
-		
-		
 	}
 
 	public JSlider getSlider() {
@@ -228,6 +188,32 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 	@Override
 	public boolean getEtatBouton(int b) {
 		return etatBoutons[b];
+	}
+
+	@Override
+	public void allumerLED(int num) {
+		JPanel led;
+		if(num==1){
+			led=panel_Led1;
+		}
+		else{
+			led=panel_Led2;
+		}
+		led.setBackground(Color.GREEN);
+		
+	}
+
+	@Override
+	public void eteindreLED(int num) {
+		JPanel led;
+		if(num==1){
+			led=panel_Led1;
+		}
+		else{
+			led=panel_Led2;
+		}
+		led.setBackground(Color.LIGHT_GRAY);
+		
 	}
 
 }

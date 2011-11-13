@@ -11,7 +11,7 @@ public class ControllerImpl implements Controller{
 	public void updateMoteur() {
 
 		ihm.setEtatIhm(moteur.getEnMarche());
-		ihm.setAfficheur(moteur.getTempo()+"");
+		ihm.setAfficheur(moteur.getTempo());
 
 	}
 
