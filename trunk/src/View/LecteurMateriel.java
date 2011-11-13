@@ -1,30 +1,47 @@
 package View;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import Model.Horloge;
+import Model.ObserverMoteur;
 
 public class LecteurMateriel implements Ihm{
+	private Materiel materiel;
+	private List<ObserverIhm> listObsIhm=new ArrayList<ObserverIhm>();
+	
+	public LecteurMateriel(){
+		materiel=new Materiel(new IhmImplWBP());
+	}
 
 	@Override
 	public int getPositionSlider() {
-		// TODO Auto-generated method stub
-		return 0;
+		int position=(int) (Materiel.getMolette().position() * 168);
+		return (position + 40);
 	}
 
 	@Override
 	public void attach(ObserverIhm o) {
-		// TODO Auto-generated method stub
+		listObsIhm.add(o);
 		
 	}
 
 	@Override
 	public void detach(ObserverIhm o) {
-		// TODO Auto-generated method stub
+		listObsIhm.remove(o);
 		
 	}
 
 	@Override
 	public void notifyObserversIhm() {
-		// TODO Auto-generated method stub
+		Iterator<ObserverIhm> it=listObsIhm.iterator();
+		//pour chaque observer moteur, utiliser la methode update afin de signaler un changement
+		//d'etat du moteur
+		while(it.hasNext()){
+			//it.next() => rend l'objet ObserverMoteur courant ET avance d'un cran dans la liste
+			it.next().updateIhm();
+		}
 		
 	}
 
@@ -60,13 +77,13 @@ public class LecteurMateriel implements Ihm{
 
 	@Override
 	public void emettreClic() {
-		// TODO Auto-generated method stub
+		Materiel.getEmetteurSonore().emettreClic();
 		
 	}
 
 	@Override
-	public void setAfficheur(String string) {
-		// TODO Auto-generated method stub
+	public void setAfficheur(int tempo) {
+		Materiel.getAfficheur().afficherTempo(tempo);
 		
 	}
 
@@ -78,14 +95,7 @@ public class LecteurMateriel implements Ihm{
 
 	@Override
 	public Horloge getHorloge() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setHorloge(Horloge horloge) {
-		// TODO Auto-generated method stub
-		
+		return Materiel.getHorloge();
 	}
 
 }

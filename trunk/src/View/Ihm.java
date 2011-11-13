@@ -63,9 +63,9 @@ public interface Ihm {
 	
 	/**
 	 * Affiche un texte sur l'afficheur de l'ihm
-	 * @param string
+	 * @param tempo
 	 */
-	public void setAfficheur(String string);
+	public void setAfficheur(int tempo);
 	
 	/**
 	 * etat de l'ihm changement graphique de l'etat
@@ -74,8 +74,5 @@ public interface Ihm {
 	public void setEtatIhm(boolean etat);
 	
 	public Horloge getHorloge();
-	
-	public void setHorloge(Horloge horloge);
-	
 	
 }
