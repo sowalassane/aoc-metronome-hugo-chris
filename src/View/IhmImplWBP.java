@@ -52,10 +52,10 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 	 */
 	public IhmImplWBP() {
 		etatBoutons=new boolean[4];
-		etatBoutons[0]=false;
-		etatBoutons[1]=false;
-		etatBoutons[2]=false;
-		etatBoutons[3]=false;
+		etatBoutons[0]=false; //Start
+		etatBoutons[1]=false; //Stop
+		etatBoutons[2]=false; //Inc
+		etatBoutons[3]=false; //Dec
 		tpsParMesure=2;
 		
 		
@@ -137,6 +137,134 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 		lblMetronome.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		lblMetronome.setBounds(135, 11, 174, 38);
 		contentPane.add(lblMetronome);
+		
+		//*********Action listener, ne change QUE l'etat interne, pas d'envoie d'evenements vers l'exterieur
+		btnStart.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				etatBoutons[0]=false;
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				etatBoutons[0]=true;
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setEtatIhm(true);
+			}
+		});
+		
+		btnStop.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				etatBoutons[1]=false;
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				etatBoutons[1]=true;
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setEtatIhm(false);
+			}
+		});
+		
+		btnInc.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				etatBoutons[2]=false;
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				etatBoutons[2]=true;
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		
+		btnDec.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				etatBoutons[3]=false;
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				etatBoutons[3]=true;
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		
 		
 		setEtatIhm(false);
 		this.setVisible(true);

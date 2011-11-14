@@ -67,12 +67,8 @@ public interface Ihm {
 	 */
 	public void setAfficheur(int tempo);
 	
-	/**
-	 * etat de l'ihm changement graphique de l'etat
-	 * @param etat
-	 */
-	public void setEtatIhm(boolean etat);
-	
 	public Horloge getHorloge();
+	
+	public void lireMateriel();
 	
 }
