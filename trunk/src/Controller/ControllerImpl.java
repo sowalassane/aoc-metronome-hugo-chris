@@ -10,7 +10,6 @@ public class ControllerImpl implements Controller{
 	@Override
 	public void updateMoteur() {
 
-		ihm.setEtatIhm(moteur.getEnMarche());
 		ihm.setAfficheur(moteur.getTempo());
 
 	}
