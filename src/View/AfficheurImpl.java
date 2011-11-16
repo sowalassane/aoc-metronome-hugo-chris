@@ -9,13 +9,13 @@ public class AfficheurImpl implements Afficheur{
 
 	@Override
 	public void allumerLed(int numLED) {
-		// TODO Auto-generated method stub
+		simulMateriel.allumerLED(numLED);
 		
 	}
 
 	@Override
 	public void eteindreLED(int numLED) {
-		// TODO Auto-generated method stub
+		simulMateriel.eteindreLED(numLED);
 		
 	}
 

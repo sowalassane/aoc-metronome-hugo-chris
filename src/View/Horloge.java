@@ -1,4 +1,6 @@
-package Model;
+package View;
+
+import Model.Command;
 
 public interface Horloge {
 	/**

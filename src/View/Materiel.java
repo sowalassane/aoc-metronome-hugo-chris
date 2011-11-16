@@ -1,7 +1,5 @@
 package View;
 
-import Model.Horloge;
-import Model.TimerToHorloge;
 
 public class Materiel {
 	private static Horloge horloge;
@@ -19,23 +17,43 @@ public class Materiel {
 		
 	}
 	
+	/**
+	 * retourne l'horloge materiel
+	 * @return Horloge, horloge
+	 */
 	public static Horloge getHorloge(){
 		return horloge;
 	}
 
+	/**
+	 * retourne le Clavier
+	 * @return Clavier, clavier
+	 */
 	public static Clavier getClavier(){
 		return clavier;
 	}
 
+	/**
+	 * retourne la molette
+	 * @return Molette, molette
+	 */
 	public static Molette getMolette(){
 		return molette;
 
 	}
 
+	/**
+	 * retourne l'emetteur sonore
+	 * @return EmetteurSonore, emetteur
+	 */
 	public static EmetteurSonore getEmetteurSonore(){
 		return emetteur;
 	}
 
+	/**
+	 * retourne l'afficheur
+	 * @return Afficheur, afficheur
+	 */
 	public static Afficheur getAfficheur(){
 		return afficheur;
 	}

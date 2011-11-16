@@ -4,19 +4,41 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import Model.Horloge;
+import Model.Command;
 import Model.ObserverMoteur;
 
 public class LecteurMateriel implements Ihm{
 	private int tempo;
-	private int nbTpsParMesure;
 	private boolean memoireInc=false;
 	private boolean memoireDec=false;
-	private boolean etatMarche;
+	private Command cmdFlasherLED1;
+	private Command cmdFlasherLED2;
+	private Command cmdStart;
+	private Command cmdStop;
+	private Command cmdInc;
+	private Command cmdDec;
 	private List<ObserverIhm> listObsIhm=new ArrayList<ObserverIhm>();
 
 	public LecteurMateriel(){
-		Materiel.getHorloge().activerPeriodiquement(new CmdLireMateriel(this), 0.5f);
+		Materiel.getHorloge().activerPeriodiquement(new CmdLireMateriel(this), 0.05f);
+		cmdFlasherLED1=new CmdFlasherLED(1);
+		cmdFlasherLED2=new CmdFlasherLED(2);
+	}
+
+	public void setCmdStart(Command cmdStart) {
+		this.cmdStart = cmdStart;
+	}
+
+	public void setCmdStop(Command cmdStop) {
+		this.cmdStop = cmdStop;
+	}
+
+	public void setCmdInc(Command cmdInc) {
+		this.cmdInc = cmdInc;
+	}
+
+	public void setCmdDec(Command cmdDec) {
+		this.cmdDec = cmdDec;
 	}
 
 	public int getTempo() {
@@ -25,20 +47,6 @@ public class LecteurMateriel implements Ihm{
 
 	public void setTempo(int tempo) {
 		this.tempo = tempo;
-		notifyObserversIhm();
-	}
-
-	public int getNbTpsParMesure() {
-		return nbTpsParMesure;
-	}
-
-	public void setNbTpsParMesure(int nbTpsParMesure) {
-		this.nbTpsParMesure = nbTpsParMesure;
-		notifyObserversIhm();
-	}
-
-	public void setEtatMarche(boolean etatMarche) {
-		this.etatMarche = etatMarche;
 		notifyObserversIhm();
 	}
 
@@ -73,24 +81,13 @@ public class LecteurMateriel implements Ihm{
 
 	@Override
 	public void flasherLED(int num) {
-		// TODO Auto-generated method stub
+		if(num==1){
+			cmdFlasherLED1.execute();
+		}
+		else{
+			cmdFlasherLED2.execute();
+		}
 
-	}
-
-	@Override
-	public boolean getEtatMarche() {
-		return etatMarche;
-	}
-
-	@Override
-	public int getTpsParMesure() {
-		return nbTpsParMesure;
-	}
-
-	@Override
-	public void setTpsParMesure(int tpsParMesure) {
-		this.nbTpsParMesure=tpsParMesure;
-		notifyObserversIhm();
 	}
 
 	@Override
@@ -112,13 +109,13 @@ public class LecteurMateriel implements Ihm{
 
 	@Override
 	public void lireMateriel() {
-		
+
 		//verif etatMarche
 		if(Materiel.getClavier().touchepressee(0)){
-			setEtatMarche(true);
+			cmdStart.execute();
 		}
 		else if(Materiel.getClavier().touchepressee(1)){
-			setEtatMarche(false);
+			cmdStop.execute();
 		}
 
 		//verif tempo
@@ -128,23 +125,21 @@ public class LecteurMateriel implements Ihm{
 			setTempo(tempoMateriel);
 		}
 
-		//verif touche inc
+		//verif touche inc (+garder en memoire etat touche afin de ne pas
+		//envoyer d'evenements a la chaine si l'utilisateur laisse la touche enfoncer)
 		if(Materiel.getClavier().touchepressee(2) && memoireInc==false){
-			if(nbTpsParMesure<7){
-				setNbTpsParMesure(nbTpsParMesure+1);
-				memoireInc=true;
-			}
+			cmdInc.execute();
+			memoireInc=true;
 		}
 		if(!Materiel.getClavier().touchepressee(2)){
 			memoireInc=false;
 		}
 
-		//verif touche dec
+		//verif touche dec (+garder en memoire etat touche afin de ne pas
+		//envoyer d'evenements a la chaine si l'utilisateur laisse la touche enfoncer)
 		if(Materiel.getClavier().touchepressee(3) && memoireDec==false){
-			if(nbTpsParMesure>2){
-				setNbTpsParMesure(nbTpsParMesure-1);
-				memoireDec=true;
-			}
+			cmdDec.execute();
+			memoireDec=true;
 		}
 		if(!Materiel.getClavier().touchepressee(3)){
 			memoireDec=false;

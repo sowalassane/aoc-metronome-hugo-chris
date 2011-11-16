@@ -22,6 +22,11 @@ public class Application {
 		moteur.setCmdMarquerTps(marquerTps);
 		moteur.setCmdMarquerMesure(marquerMesure);
 		
+		ihm.setCmdStart(new CmdStart(controller));
+		ihm.setCmdStop(new CmdStop(controller));
+		ihm.setCmdInc(new CmdInc(controller));
+		ihm.setCmdDec(new CmdDec(controller));
+		
 		moteur.attach(controller);
 		ihm.attach(controller);
 	}

@@ -26,8 +26,6 @@ import java.util.List;
 import javax.swing.SwingConstants;
 
 import Model.Command;
-import Model.Horloge;
-import Model.TimerToHorloge;
 
 
 public class IhmImplWBP extends JFrame implements SimulMateriel{
@@ -167,7 +165,6 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setEtatIhm(true);
 			}
 		});
 		
@@ -199,7 +196,6 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setEtatIhm(false);
 			}
 		});
 		
@@ -265,8 +261,6 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 			}
 		});
 		
-		
-		setEtatIhm(false);
 		this.setVisible(true);
 	}
 
@@ -296,21 +290,6 @@ public class IhmImplWBP extends JFrame implements SimulMateriel{
 
 	public void setAfficheur(String string) {
 		lblAfficheur.setText(string);
-	}
-
-	public void setEtatIhm(boolean etat) {
-		if(etat){
-			btnInc.setEnabled(true);
-			btnDec.setEnabled(true);
-			slider.setEnabled(true);
-		}
-		else{
-			btnInc.setEnabled(false);
-			btnDec.setEnabled(false);
-			slider.setEnabled(false);
-			panel_Led1.setBackground(Color.LIGHT_GRAY);
-			panel_Led2.setBackground(Color.LIGHT_GRAY);
-		}
 	}
 
 	@Override

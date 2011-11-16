@@ -10,7 +10,6 @@ public class EmetteurSonoreImpl implements EmetteurSonore{
 	@Override
 	public void emettreClic() {
 		simulMateriel.emettreClic();
-		
 	}
 
 }

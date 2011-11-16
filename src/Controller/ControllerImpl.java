@@ -16,14 +16,8 @@ public class ControllerImpl implements Controller{
 
 	@Override
 	public void updateIhm() {
-		if(ihm.getEtatMarche()!=moteur.getEnMarche()){
-			moteur.setEnMarche(ihm.getEtatMarche());
-		}
 		if(ihm.getPositionSlider()!=moteur.getTempo()){
 			moteur.setTempo(ihm.getPositionSlider());
-		}
-		if(ihm.getTpsParMesure()!=moteur.getNbTpsParMesure()){
-			moteur.setNbTpsParMesure(ihm.getTpsParMesure());
 		}
 
 	}
@@ -50,6 +44,38 @@ public class ControllerImpl implements Controller{
 	public void setIhm(Ihm ihm) {
 		this.ihm=ihm;
 
+	}
+
+	@Override
+	public void inc() {
+		if(moteur.getNbTpsParMesure()<7){
+			moteur.setNbTpsParMesure(moteur.getNbTpsParMesure()+1);
+		}
+		
+	}
+
+	@Override
+	public void dec() {
+		if(moteur.getNbTpsParMesure()>2){
+			moteur.setNbTpsParMesure(moteur.getNbTpsParMesure()-1);
+		}
+		
+	}
+
+	@Override
+	public void start() {
+		if(!moteur.getEnMarche()){
+			moteur.setEnMarche(true);
+		}
+		
+	}
+
+	@Override
+	public void stop() {
+		if(moteur.getEnMarche()){
+			moteur.setEnMarche(false);
+		}
+		
 	}
 
 
