@@ -9,6 +9,7 @@ import Model.ObserverMoteur;
 
 public class LecteurMateriel implements Ihm{
 	private int tempo;
+	private int memoireTempo;
 	private boolean memoireInc=false;
 	private boolean memoireDec=false;
 	private Command cmdFlasherLED1;
@@ -121,8 +122,21 @@ public class LecteurMateriel implements Ihm{
 		//verif tempo
 		float moletteMateriel=Materiel.getMolette().position();
 		int tempoMateriel=(int) ((moletteMateriel*168)+40);
+		
+		//si il y a une difference entre le tempo actuel et celui du materiel..
 		if(tempo!=tempoMateriel){
-			setTempo(tempoMateriel);
+			//...si le dernier tempo vu est le meme que celui du materiel 
+			//=> la valeur du tempo a ete la meme lors de deux appels consecutifs a la fonction liremateriel()
+			//alors on change la valeur du tempo et on notify les observers ihm
+			if(memoireTempo==tempoMateriel){
+				memoireTempo=tempoMateriel;
+				setTempo(tempoMateriel);
+			}
+			//....si non alors on change juste "memoireTempo". Cette approche permet de limiter
+			//les changements au niveau du moteur lorsque le slider bouge rapidement (passage d'une valeur a une autre)
+			else{
+				memoireTempo=tempoMateriel;
+			}
 		}
 
 		//verif touche inc (+garder en memoire etat touche afin de ne pas
