@@ -16,7 +16,7 @@ public class LecteurMateriel implements Ihm{
 	private List<ObserverIhm> listObsIhm=new ArrayList<ObserverIhm>();
 
 	public LecteurMateriel(){
-		Materiel.getHorloge().activerPeriodiquement(new LireMateriel(this), 0.1f);
+		Materiel.getHorloge().activerPeriodiquement(new CmdLireMateriel(this), 0.5f);
 	}
 
 	public int getTempo() {
@@ -117,7 +117,7 @@ public class LecteurMateriel implements Ihm{
 		if(Materiel.getClavier().touchepressee(0)){
 			setEtatMarche(true);
 		}
-		else{
+		else if(Materiel.getClavier().touchepressee(1)){
 			setEtatMarche(false);
 		}
 

@@ -56,6 +56,7 @@ public class MoteurImpl implements Moteur{
 
 	@Override
 	public void setEnMarche(boolean b) {
+		
 		etatMarche=b;
 		//si on met en marche le moteur, alors on passe la commande traiter tic a l'ohrloge
 		//avec le tempo desire

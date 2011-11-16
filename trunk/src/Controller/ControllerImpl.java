@@ -16,7 +16,7 @@ public class ControllerImpl implements Controller{
 
 	@Override
 	public void updateIhm() {
-		if(ihm.getEtatMarche()!=moteur.getEnMarche()){		
+		if(ihm.getEtatMarche()!=moteur.getEnMarche()){
 			moteur.setEnMarche(ihm.getEtatMarche());
 		}
 		if(ihm.getPositionSlider()!=moteur.getTempo()){

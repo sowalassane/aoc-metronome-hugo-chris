@@ -2,10 +2,10 @@ package View;
 
 import Model.Command;
 
-public class LireMateriel implements Command{
+public class CmdLireMateriel implements Command{
 	private Ihm ihm;
 	
-	public LireMateriel(Ihm ihm){
+	public CmdLireMateriel(Ihm ihm){
 		this.ihm=ihm;
 	}
 
