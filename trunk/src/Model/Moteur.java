@@ -75,5 +75,10 @@ public interface Moteur {
 	 * appelle la methode updateMoteur des observers afin de les notifier d'un changements d'etat du moteur
 	 */
 	public void notifyObserversMoteur();
+	
+	/**
+	 * specifie l'horloge a utiliser par le moteur pour les actions periodiques
+	 * @param horloge Horloge, horloge
+	 */
 	public void setHorloge(Horloge horloge);
 }

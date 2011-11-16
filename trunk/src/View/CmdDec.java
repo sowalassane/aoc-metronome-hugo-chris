@@ -6,6 +6,10 @@ import Model.Command;
 public class CmdDec implements Command {
 	private Controller controller;
 	
+	/**
+	 * constructeur 
+	 * @param controller Controlleur, le controlleur appele par la methode execute
+	 */
 	public CmdDec(Controller controller){
 		this.controller=controller;
 	}
