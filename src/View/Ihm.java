@@ -12,13 +12,13 @@ public interface Ihm {
 	
 	/**
 	 * attache un observerIhm a l'ihm
-	 * @param o l'observer a attacher
+	 * @param o ObserverIhm,l'observer a attacher
 	 */
 	public void attach(ObserverIhm o);
 	
 	/**
 	 * supprime un observerIhm de la liste des observers
-	 * @param o
+	 * @param o ObserverIhm,
 	 */
 	public void detach(ObserverIhm o);
 	
@@ -29,7 +29,7 @@ public interface Ihm {
 	
 	/**
 	 * Flash la	LED dont le numero est passer en arguments
-	 * @param num numero de la LED a flasher( 1: LED TIC, 2: LED temps)
+	 * @param num int, numero de la LED a flasher( 1: LED TIC, 2: LED temps)
 	 */
 	public void flasherLED(int num);	
 	

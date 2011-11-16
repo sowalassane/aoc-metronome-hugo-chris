@@ -1,6 +1,10 @@
 package View;
 
 public interface SimulMateriel {
+	/**
+	 * retourne la position du slider
+	 * @return
+	 */
 	float getPositionSlider();
 	void emettreClic();
 	void setAfficheur(String string);
