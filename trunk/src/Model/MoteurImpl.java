@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import View.Horloge;
+
 public class MoteurImpl implements Moteur{
 	private List<ObserverMoteur> ListObsMoteur=new ArrayList<ObserverMoteur>();
 	private Command traiterTic;
@@ -14,15 +16,15 @@ public class MoteurImpl implements Moteur{
 	private int nbTpsDansMesureActuelle;
 	private int tempo;
 	private Horloge horloge;
-	
+
 	public MoteurImpl(){
 		traiterTic=new CmdTraiterTic(this);
-		nbTpsParMesure=1;
+		nbTpsParMesure=2;
 		nbTpsDansMesureActuelle=0;
 		tempo=40;
 		etatMarche=false;
 	}
-	
+
 	@Override
 	public int getTempo() {
 		return tempo;
@@ -31,17 +33,24 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setTempo(int t) {
 		tempo=t;
-		horloge.desactiver(traiterTic);
-		float delai=(float) 60/t;
-		horloge.activerPeriodiquement(traiterTic, delai);
-		notifyObserversMoteur();
+		//on n'actualise l'affichage que si le metronome est en marche
+		if(etatMarche){
+			horloge.desactiver(traiterTic);
+			float delai=(float) 60/t;
+			horloge.activerPeriodiquement(traiterTic, delai);
+			notifyObserversMoteur();
+		}
+		
 	}
 
 	@Override
 	public void setNbTpsParMesure(int t) {
 		nbTpsParMesure=t;
 		nbTpsDansMesureActuelle=0;
-		notifyObserversMoteur();
+		//on n'actualise l'affichage que si le metronome est en marche
+		if(etatMarche){
+			notifyObserversMoteur();
+		}
 	}
 
 	@Override
@@ -56,7 +65,7 @@ public class MoteurImpl implements Moteur{
 
 	@Override
 	public void setEnMarche(boolean b) {
-		
+
 		etatMarche=b;
 		//si on met en marche le moteur, alors on passe la commande traiter tic a l'ohrloge
 		//avec le tempo desire
@@ -80,7 +89,7 @@ public class MoteurImpl implements Moteur{
 	public void setCmdTic(Command cmd) {
 		traiterTic=cmd;
 	}
-	
+
 	public void setMarquerTemps(Command marquerTemps) {
 		this.marquerTemps = marquerTemps;
 	}
@@ -93,7 +102,7 @@ public class MoteurImpl implements Moteur{
 			nbTpsDansMesureActuelle=0;
 			marquerMesure.execute();
 		}
-		
+
 	}
 
 	@Override
@@ -115,7 +124,7 @@ public class MoteurImpl implements Moteur{
 			//it.next() => rend l'objet ObserverMoteur courant ET avance d'un cran dans la liste
 			it.next().updateMoteur();
 		}
-		
+
 	}
 
 	@Override
@@ -126,7 +135,7 @@ public class MoteurImpl implements Moteur{
 	@Override
 	public void setHorloge(Horloge horloge) {
 		this.horloge=horloge;
-		
+
 	}
-		
+
 }

@@ -1,6 +1,7 @@
 package View;
 
-import Model.Horloge;
+import Model.Command;
+
 
 public interface Ihm {
 	/**
@@ -30,31 +31,7 @@ public interface Ihm {
 	 * Flash la	LED dont le numero est passer en arguments
 	 * @param num numero de la LED a flasher( 1: LED TIC, 2: LED temps)
 	 */
-	public void flasherLED(int num);
-	
-	/**
-	 * renvoie true si le metronome est en etat de marche, false sinon
-	 * @return etat du metronome
-	 */
-	public boolean getEtatMarche();
-	
-	/**
-	 * specifie l'etat du metronome et notifie les observer
-	 * @param etat
-	 */
-	public void setEtatMarche(boolean etat);
-	
-	/**
-	 * retourne le nombre de temps par mesure
-	 * @return
-	 */
-	public int getTpsParMesure();
-	
-	/**
-	 * specifie le nombre de temps par  mesure et notifie les observer
-	 * @param tpsParMesure
-	 */
-	public void setTpsParMesure(int tpsParMesure);
+	public void flasherLED(int num);	
 	
 	/**
 	 * emet un clic
@@ -63,12 +40,43 @@ public interface Ihm {
 	
 	/**
 	 * Affiche un texte sur l'afficheur de l'ihm
-	 * @param tempo
+	 * @param tempo int, tempo
 	 */
 	public void setAfficheur(int tempo);
 	
+	/**
+	 * specifie la command a appeler lorsque le bouton start est presser
+	 * @param cmd Command, la command start a utiliser
+	 */
+	public void setCmdStart(Command cmd);
+	
+	/**
+	 * specifie la command a appeler lorsque le bouton stop est presser
+	 * @param cmd Command, la command stop a utiliser
+	 */
+	public void setCmdStop(Command cmd);
+	
+	/**
+	 * specifie la command a appeler lorsque le bouton inc est presser
+	 * @param cmd Command, la command inc a utiliser
+	 */
+	public void setCmdInc(Command cmd);
+	
+	/**
+	 * specifie la command a appeler lorsque le bouton dec est presser
+	 * @param cmd Command, la command dec a utiliser
+	 */
+	public void setCmdDec(Command cmd);
+	
+	/**
+	 * retourne l'horloge du materiel
+	 * @return Horloge, horloge
+	 */
 	public Horloge getHorloge();
 	
+	/**
+	 * methode appellee afin de verifier les changements au niveau de l'ihm materiel
+	 */
 	public void lireMateriel();
 	
 }
