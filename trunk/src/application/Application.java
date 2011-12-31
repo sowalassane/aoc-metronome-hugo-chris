@@ -7,6 +7,8 @@ import View.*;
 public class Application {
 	
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
+		Materiel materiel=new Materiel(new IhmImplWBP());
 		Ihm ihm=new LecteurMateriel();
 		Moteur moteur=new MoteurImpl();	
 		Controller controller=new ControllerImpl();
