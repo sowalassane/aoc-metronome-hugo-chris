@@ -9,7 +9,7 @@ package View;
 public interface SimulMateriel {
 	/**
 	 * retourne la position du slider
-	 * @return
+	 * @return float position du slider
 	 */
 	float getPositionSlider();
 	

@@ -8,7 +8,7 @@ public class CmdStop implements Command {
 	
 	/**
 	 * constructeur 
-	 * @param controller Controlleur, le controlleur appele par la methode execute
+	 * @param controlleur Controlleur, le controlleur appele par la methode execute
 	 */
 	public CmdStop(Controller controlleur){
 		this.controller=controlleur;

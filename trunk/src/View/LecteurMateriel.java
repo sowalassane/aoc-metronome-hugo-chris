@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import Model.Command;
-import Model.ObserverMoteur;
 
 public class LecteurMateriel implements Ihm{
 	private int tempo;
