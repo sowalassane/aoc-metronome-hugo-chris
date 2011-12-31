@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.EventQueue;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -9,8 +8,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -19,13 +16,9 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.SwingConstants;
 
-import Model.Command;
 
 
 public class IhmImplWBP extends JFrame implements SimulMateriel{
